@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.17e50649.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Lit App</title>
+    
+    
+      
+    <style>
+      body {
+        margin: 0;
+        background-color: #f3f6e6;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index.59cf1f7e.js"></script>
+    <link rel="modulepreload" href="/assets/vendor.1a34caf7.js">
+    <link rel="stylesheet" href="/assets/index.c7f9b53c.css">
+  </head>
+  <body>
+    <my-section>
+      <h1>Lit Elements.</h1>
+        <div style="display: flex; align-items: flex-start">
+      <my-card>
+        <h1>TypeScript.</h1>
+        <pre style="max-height: 33vh; overflow: auto; border: 1px solid rgba(0,0,0,0.5)">
+          <code class="hljs language-ts">
+import { html, css, LitElement } from 'lit'
+import { customElement, property } from 'lit/decorators.js'
+
+
+@customElement('my-card')
+export class CardElement extends LitElement {
+    static styles = css`
+    .card {
+      background-color: #FFF;
+      color: var(--foreground);
+      padding: 2em;
+      margin: 1.2em;
+      display: inline-block;
+      font-family: 'Roboto', sans-serif;
+      border: 2px solid #000;
+      box-shadow: 10px 10px 0px 0px var(--foreground);
+    }
+    .round {
+      border-radius: 1em;
+
+    }
+  `
+
+    @property()
+    fontColor = 'recalculate';
+
+    @property()
+    lightTextColor = '#FFFFFF';
+
+    @property()
+    darkTextColor = '#0146e0';
+
+    @property({type: 'boolean'})
+    round = false;
+
+    connectedCallback() {
+        super.connectedCallback();
+
+        if(this.fontColor === 'recalculate') {
+            this.fontColor = calculateColor('#FFFFFF', this.lightTextColor, this.darkTextColor)
+        }
+    }
+
+    render() {
+        return html`
+          &lt;div class="card ${this.round ? 'round' : ''}" style="--foreground: ${this.fontColor}"&gt;
+            &lt;slot&gt;&lt;/slot&gt;
+          &lt;/div&gt;
+        `
+    }
+}
+          </code>
+        </pre>
+      </my-card>
+        <my-card>
+            <h1>HTML</h1>
+            <pre>
+                <code class="hljs language-xml">
+&lt;script type="module" src="/src/my-card.ts"&gt;&lt;/script&gt;
+&lt;my-card round="true" fontColor="#d2392e"&gt;
+  &lt;h1&gt;Ich bin rund.&lt;/h1&gt;
+  &lt;p&gt;Wirklich cool&lt;/p&gt;
+&lt;/my-card&gt;
+                </code>
+            </pre>
+        </my-card>
+        </div>
+    </my-section>
+  <my-section bgColor="#ABCABC" fontColor="#d2392e">
+    <div style="display: flex; align-items: center;">
+    <my-card round="true" fontColor="#d2392e">
+      <h1>Ich bin rund.</h1>
+      <p>Wirklich cool</p>
+    </my-card>
+      <div>
+        <h1>Hier könnte ihre Werbung stehen.</h1>
+        <h3>Julian Frauenholz Design</h3>
+      </div>
+    </div>
+  </my-section>
+  </body>
+</html>
